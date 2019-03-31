@@ -2,6 +2,8 @@ package application;
 
 public class Museum {
 
+	public Museum next = null;
+	
 	private String name;
 	private String address;
 	private String description;

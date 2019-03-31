@@ -55,8 +55,21 @@ public class MainMenuController implements Comparable<Museum> {
 		String description = descriptionTextArea.getText();
 		double openingTime = Double.parseDouble(openingTimeField.getText());
 		Double cost = Double.parseDouble(costOfEntryField.getText());
-
-		Museum newMuseum = new Museum(name,address,description,openingTime,cost);
+		
+		Museum newMuseum = new Museum(name, address, description, openingTime, cost);
+		newMuseum.setName(name);
+		newMuseum.setAddress(address);
+		newMuseum.setDescription(description);
+		newMuseum.setOpeningTime(openingTime);
+		newMuseum.setCost(cost);
+		newMuseum.next = Main.headMuseum;
+		Main.headMuseum = newMuseum;
+		
+		Museum temp = Main.headMuseum;
+		while(temp != null) {
+			temp = temp.next;
+		}
+		
 		museumTable.getItems().add(newMuseum);
 	}
 

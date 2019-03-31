@@ -8,6 +8,9 @@ import javafx.scene.layout.VBox;
 
 
 public class Main extends Application {
+	
+	public static Museum headMuseum = null;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
