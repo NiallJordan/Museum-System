@@ -86,13 +86,15 @@ public class MainMenuController implements Comparable<Museum> {
 	}
 
 	@FXML
-	private ObservableList<Museum> getInitialTableData() throws Exception {
-		load();
+	private ObservableList<Museum> getInitialTableData() {
+		
 		return museumData;
 	}
 
 	@FXML 
 	private void initialize() throws Exception {
+		load();
+		
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
 		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
@@ -138,7 +140,6 @@ public class MainMenuController implements Comparable<Museum> {
 			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
 			decoder.close();
 			fis.close();
-			
 			
 		}
 		catch(IOException e) {
