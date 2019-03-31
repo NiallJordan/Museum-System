@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -58,15 +59,23 @@
                   <Button layoutX="5.0" layoutY="542.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="91.0" text="Sort By Time" />
                </children>
             </AnchorPane>
-            <TableView fx:id="museumTable" prefHeight="496.0" prefWidth="661.0">
-               <columns>
-                  <TableColumn fx:id="nameColumn" prefWidth="119.0" text="Name" />
-                  <TableColumn fx:id="addressColumn" prefWidth="111.0" text="Address" />
-                  <TableColumn fx:id="descriptionColumn" prefWidth="162.0" text="Description" />
-                  <TableColumn fx:id="openingTimeColumn" prefWidth="132.33331298828125" text="Opening Time" />
-                  <TableColumn fx:id="costOfEntryColumn" prefWidth="100.66668701171875" text="Cost Of Entry" />
-               </columns>
-            </TableView>
+            <ScrollPane prefHeight="571.0" prefWidth="625.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="573.0" prefWidth="627.0">
+                     <children>
+                        <TableView fx:id="museumTable" prefHeight="573.0" prefWidth="625.0">
+                           <columns>
+                              <TableColumn fx:id="nameColumn" prefWidth="119.0" text="Name" />
+                              <TableColumn fx:id="addressColumn" prefWidth="111.0" text="Address" />
+                              <TableColumn fx:id="descriptionColumn" prefWidth="162.0" text="Description" />
+                              <TableColumn fx:id="openingTimeColumn" prefWidth="132.33331298828125" text="Opening Time" />
+                              <TableColumn fx:id="costOfEntryColumn" prefWidth="100.66668701171875" text="Cost Of Entry" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
         </items>
       </SplitPane>
   </children>

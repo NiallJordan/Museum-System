@@ -1,14 +1,28 @@
 package application;
 
+import java.io.FileReader;
+
+
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+
+
 public class Museum {
 
 	private String name;
 	private String address;
 	private String description;
 	private double openingTime;
-	private int cost;
+	private double cost;
 	
-	public Museum(String name, String address, String description, double openingTime, int cost) {
+	public Museum(String name, String address, String description, double openingTime, double cost) {
+		
+		
 		
 	}
 
@@ -30,7 +44,7 @@ public class Museum {
 		return openingTime;
 	}
 
-	public int getCost() {
+	public double getCost() {
 		return cost;
 	}
 
@@ -52,7 +66,8 @@ public class Museum {
 		this.openingTime = openingTime;
 	}
 	
-	public void setCost(int cost) {
+	public void setCost(double cost) {
 		this.cost = cost;
 	}
+	
 }
