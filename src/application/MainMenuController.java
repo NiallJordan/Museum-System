@@ -44,7 +44,7 @@ public class MainMenuController implements Comparable<Museum> {
 
 	@FXML Button sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
 
-	private ObservableList<Museum> museumData = null;
+	private ObservableList<Museum> museumData = FXCollections.observableArrayList();;
 
 
 
@@ -72,28 +72,8 @@ public class MainMenuController implements Comparable<Museum> {
 		}
 	}
 
-	public ObservableList<Museum> getMuseums(){
-		if(museumData != null) return museumData;
-
-		return museumData;
-	}
-
-	public void setUpMuseumTable() {
-
-		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
-		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
-		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
-		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
-		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("costOfEntry"));
-
-		museumTable.setItems(getInitialTableData());
-	}
-
-
+	@FXML
 	private ObservableList<Museum> getInitialTableData() {
-		if(museumData != null) return museumData;
-
-		museumData = FXCollections.observableArrayList();
 
 		museumData.add(new Museum("National","sdadsa","sadadjanfdfnd",10.00,123.00));
 
@@ -101,6 +81,17 @@ public class MainMenuController implements Comparable<Museum> {
 
 	}
 
+	@FXML 
+	private void initialize() {
+		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
+		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
+		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
+		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
+		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("costOfEntry"));
+		
+		museumTable.setItems(getInitialTableData());
+	}
+	
 	/**
 	 * When this button is pressed the program ends.
 	 * 

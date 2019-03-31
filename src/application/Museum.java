@@ -1,17 +1,5 @@
 package application;
 
-import java.io.FileReader;
-
-
-import java.io.FileWriter;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
-
 public class Museum {
 
 	private String name;
@@ -20,13 +8,9 @@ public class Museum {
 	private double openingTime;
 	private double cost;
 	
-	public Museum(String name, String address, String description, double openingTime, double cost) {
-		
-		
-		
+	public Museum(String name, String address, String description, double openingTime, double cost) {		
 	}
 
-	
 	//==================GETTERS==================\\
 	public String getName() {
 		return name;
