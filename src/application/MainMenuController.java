@@ -21,12 +21,16 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.text.Text;
 
-public class MainMenuController implements Comparable<Museum> {
+public class MainMenuController{
 
 
 	@FXML MenuItem quitMenuItem;
 	@FXML Button addButton, deleteButton, sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
+	
+	//These instance variables are used to create new Museum Objects
 	@FXML TextField nameField,openingTimeField,costOfEntryField;
 	@FXML TextArea addressTextArea, descriptionTextArea;
 
@@ -38,6 +42,10 @@ public class MainMenuController implements Comparable<Museum> {
 	@FXML TableColumn<Museum,Double> costOfEntryColumn;
 
 
+	/**
+	 * This method will create a new Museum object and add it to the table
+	 * @param e
+	 */
 	@FXML 
 	public void addMuseum(ActionEvent e) {
 		String name = nameField.getText();
@@ -46,7 +54,8 @@ public class MainMenuController implements Comparable<Museum> {
 		double openingTime = Double.parseDouble(openingTimeField.getText());
 		double cost = Double.parseDouble(costOfEntryField.getText());
 		
-		Museum newMuseum = new Museum(name, address, description, openingTime, cost);
+		//Creating a new Museum item on the custom Linked List.
+		Museum newMuseum = new Museum(name, address, description, openingTime, cost);		
 		newMuseum.setName(name);
 		newMuseum.setAddress(address);
 		newMuseum.setDescription(description);
@@ -60,10 +69,15 @@ public class MainMenuController implements Comparable<Museum> {
 			temp = temp.next;
 		}
 		
+		//Get all items from the table as a list, then add the new Museum
 		museumTable.getItems().add(newMuseum);
 	}
 
 	
+	/**
+	 * This method will delete a Museum object from the table
+	 * @param e
+	 */
 	@FXML 
 	public void deleteMuseum(ActionEvent e) {
 		ObservableList<Museum> selectedMuseum, allMuseums;
@@ -96,11 +110,22 @@ public class MainMenuController implements Comparable<Museum> {
 		
 		//loading dummy data
 		museumTable.setItems(getDummyData());
+		
+		//Update Table to allow for editing
+		museumTable.setEditable(true);
+		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+		descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+//		openingTimeColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+//		costOfEntryColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+		
 	}
 
 
 	/**
 	 * This method will return an ObservableList of the Museum Object
+	 * with some dummy objects that will be printed to the table upon 
+	 * calling of this method.
 	 */
 	@FXML
 	private ObservableList<Museum> getDummyData() {
@@ -113,11 +138,18 @@ public class MainMenuController implements Comparable<Museum> {
 	}
 	
 	
-	@Override
-	public int compareTo(Museum m) {
-		return 0;
+	
+	//================ UPDATING METHODS =================\\
+	/**
+	 * This method will allow the user to double click on a cell and update cell
+	 * 
+	 * @param args
+	 */
+	
+	public void updateNameCell(CellEditEvent editedCell) {
+		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
+		museumSelected.setName(editedCell.getNewValue().toString());
 	}
-
 	
 	/**
 	 * This method will allow the user to double click on a cell and update cell
@@ -125,19 +157,46 @@ public class MainMenuController implements Comparable<Museum> {
 	 * @param args
 	 */
 	
-//	public void updateFirstNameCell(CellEditEvent editedCell) {
-//		Museum selectedMuseum = (Museum) museumTable.getSelectionModel().getSelectedItems();
-//		selectedMuseum.setName(editedCell.getNewValue().toString());
-//	}
-
-
+	public void updateAddressCell(CellEditEvent editedCell) {
+		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
+		museumSelected.setAddress(editedCell.getNewValue().toString());
+	}
+	
+	/**
+	 * This method will allow the user to double click on a cell and update cell
+	 * 
+	 * @param args
+	 */
+	
+	public void updateDescriptionCell(CellEditEvent editedCell) {
+		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
+		museumSelected.setDescription(editedCell.getNewValue().toString());
+	}
+	
+	/**
+	 * This method will allow the user to double click on a cell and update cell
+	 * 
+	 * @param args
+	 */
+	
+	public void updateOpeningTimeCell(CellEditEvent editedCell) {
+		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
+		museumSelected.setOpeningTime(Double.parseDouble(editedCell.getNewValue().toString()));
+	}
+	
+	/**
+	 * This method will allow the user to double click on a cell and update cell
+	 * 
+	 * @param args
+	 */
+	
+	public void updateCostCell(CellEditEvent editedCell) {
+		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
+		museumSelected.setCost(Double.parseDouble(editedCell.getNewValue().toString()));
+	}
+	
 
 	//================ SAVE AND LOAD =================\\
-
-	public static void main(String[] args) {
-
-	}
-
 
 //	@SuppressWarnings("unchecked")
 //	public void load() throws Exception
@@ -175,7 +234,8 @@ public class MainMenuController implements Comparable<Museum> {
 //	
 	
 	/**
-	 * When this button is pressed the program ends.
+	 * When this button is pressed the program ends and the table
+	 * data is saved .
 	 * 
 	 * @param e
 	 * @throws Exception 

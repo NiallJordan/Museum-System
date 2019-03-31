@@ -55,8 +55,8 @@
                      <children>
                         <TableView fx:id="museumTable" prefHeight="573.0" prefWidth="1050.0">
                            <columns>
-                              <TableColumn fx:id="nameColumn" minWidth="200.0" prefWidth="-1.0" text="Name" />
-                              <TableColumn fx:id="addressColumn" minWidth="200.0" prefWidth="-1.0" text="Address" />
+                              <TableColumn fx:id="nameColumn" minWidth="200.0" onEditCommit="#updateNameCell" prefWidth="-1.0" text="Name" />
+                              <TableColumn fx:id="addressColumn" minWidth="200.0" onEditCommit="#updateAddressCell" prefWidth="-1.0" text="Address" />
                               <TableColumn fx:id="descriptionColumn" minWidth="200.0" prefWidth="-1.0" text="Description" />
                               <TableColumn fx:id="openingTimeColumn" minWidth="100.0" prefWidth="-1.0" text="Opening Time" />
                               <TableColumn fx:id="costOfEntryColumn" minWidth="100.0" prefWidth="-1.0" text="Cost" />
