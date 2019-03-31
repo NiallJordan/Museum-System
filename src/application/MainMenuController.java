@@ -29,7 +29,7 @@ public class MainMenuController{
 
 	@FXML MenuItem quitMenuItem;
 	@FXML Button addButton, deleteButton, sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
-	
+
 	//These instance variables are used to create new Museum Objects
 	@FXML TextField nameField,openingTimeField,costOfEntryField;
 	@FXML TextArea addressTextArea, descriptionTextArea;
@@ -41,6 +41,7 @@ public class MainMenuController{
 	@FXML TableColumn<Museum, Double> openingTimeColumn;
 	@FXML TableColumn<Museum,Double> costOfEntryColumn;
 
+	ObservableList<Museum> museums= FXCollections.observableArrayList();
 
 	/**
 	 * This method will create a new Museum object and add it to the table
@@ -53,7 +54,7 @@ public class MainMenuController{
 		String description = descriptionTextArea.getText();
 		double openingTime = Double.parseDouble(openingTimeField.getText());
 		double cost = Double.parseDouble(costOfEntryField.getText());
-		
+
 		//Creating a new Museum item on the custom Linked List.
 		Museum newMuseum = new Museum(name, address, description, openingTime, cost);		
 		newMuseum.setName(name);
@@ -63,19 +64,22 @@ public class MainMenuController{
 		newMuseum.setCost(cost);
 		newMuseum.next = Main.headMuseum;
 		Main.headMuseum = newMuseum;
-		
+
 		Museum temp = Main.headMuseum;
 		while(temp != null) {
 			temp = temp.next;
 		}
-		
+
 		//Get all items from the table as a list, then add the new Museum
 		museumTable.getItems().add(newMuseum);
 	}
 
-	
+
 	/**
 	 * This method will delete a Museum object from the table
+	 * that has been clicked/selected by the user. This removes 
+	 * that selected Museum from the observable list of Museums.
+	 * 
 	 * @param e
 	 */
 	@FXML 
@@ -99,26 +103,26 @@ public class MainMenuController{
 	 */
 	@FXML 
 	private void initialize() throws Exception {
-//		load();
-		
+
 		//set up columns in the table
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
 		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
 		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
 		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("cost"));
-		
+
 		//loading dummy data
 		museumTable.setItems(getDummyData());
-		
+
+
 		//Update Table to allow for editing
 		museumTable.setEditable(true);
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-//		openingTimeColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
-//		costOfEntryColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
-		
+		//		openingTimeColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+		//		costOfEntryColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+
 	}
 
 
@@ -129,110 +133,85 @@ public class MainMenuController{
 	 */
 	@FXML
 	private ObservableList<Museum> getDummyData() {
-		ObservableList<Museum> museums= FXCollections.observableArrayList();
+
 		museums.add(new Museum("National History Museum", "Dublin", "Big Museum", 8.30, 7.00));
 		museums.add(new Museum("National History Museum", "New York", "Bigger Museum", 8.30, 14.00));
-		
-		
+
 		return museums;
 	}
-	
-	
-	
+
+
+
 	//================ UPDATING METHODS =================\\
 	/**
 	 * This method will allow the user to double click on a cell and update cell
 	 * 
 	 * @param args
 	 */
-	
 	public void updateNameCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
 		museumSelected.setName(editedCell.getNewValue().toString());
 	}
-	
-	/**
-	 * This method will allow the user to double click on a cell and update cell
-	 * 
-	 * @param args
-	 */
-	
+
 	public void updateAddressCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
 		museumSelected.setAddress(editedCell.getNewValue().toString());
 	}
-	
-	/**
-	 * This method will allow the user to double click on a cell and update cell
-	 * 
-	 * @param args
-	 */
-	
+
 	public void updateDescriptionCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
 		museumSelected.setDescription(editedCell.getNewValue().toString());
 	}
-	
-	/**
-	 * This method will allow the user to double click on a cell and update cell
-	 * 
-	 * @param args
-	 */
-	
+
 	public void updateOpeningTimeCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
 		museumSelected.setOpeningTime(Double.parseDouble(editedCell.getNewValue().toString()));
 	}
-	
-	/**
-	 * This method will allow the user to double click on a cell and update cell
-	 * 
-	 * @param args
-	 */
-	
+
 	public void updateCostCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
 		museumSelected.setCost(Double.parseDouble(editedCell.getNewValue().toString()));
 	}
-	
+
 
 	//================ SAVE AND LOAD =================\\
 
-//	@SuppressWarnings("unchecked")
-//	public void load() throws Exception
-//	{
-//		try {
-//			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
-//			XMLDecoder decoder= new XMLDecoder(fis);
-//
-//			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
-//			decoder.close();
-//			fis.close();
-//			
-//		}
-//		catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//
-//	public void save() throws Exception
-//	{
-//		ObservableList<Museum> mus = museumData;
-//		try {
-//
-//			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
-//			XMLEncoder encoder = new XMLEncoder(fos);
-//			encoder.writeObject(mus);
-//			encoder.close();
-//			fos.close();
-//		}
-//		catch(IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-//	
-	
+	//	@SuppressWarnings("unchecked")
+	//	public void load() throws Exception
+	//	{
+	//		try {
+	//			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
+	//			XMLDecoder decoder= new XMLDecoder(fis);
+	//
+	//			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
+	//			decoder.close();
+	//			fis.close();
+	//			
+	//		}
+	//		catch(IOException e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+	//
+	//
+	@SuppressWarnings("unchecked")
+	public void save() throws Exception
+	{
+		ObservableList<Museum> mus = museums;
+		try {
+
+			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
+			XMLEncoder encoder = new XMLEncoder(fos);
+			encoder.writeObject(mus);
+			encoder.close();
+			fos.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 	/**
 	 * When this button is pressed the program ends and the table
 	 * data is saved .
@@ -241,7 +220,7 @@ public class MainMenuController{
 	 * @throws Exception 
 	 */
 	@FXML public void exit(ActionEvent e) throws Exception {
-		// save();
+		save();
 		Platform.exit();
 	}
 }
