@@ -54,7 +54,7 @@ public class MainMenuController implements Comparable<Museum> {
 		String address = addressTextArea.getText();
 		String description = descriptionTextArea.getText();
 		double openingTime = Double.parseDouble(openingTimeField.getText());
-		Double cost = Double.parseDouble(costOfEntryField.getText());
+		double cost = Double.parseDouble(costOfEntryField.getText());
 		
 		Museum newMuseum = new Museum(name, address, description, openingTime, cost);
 		newMuseum.setName(name);
@@ -86,21 +86,18 @@ public class MainMenuController implements Comparable<Museum> {
 	}
 
 	@FXML
-	private ObservableList<Museum> getInitialTableData() {
-
-		museumData.add(new Museum("National","sdadsa","sadadjanfdfnd",10.00,123.00));
-
+	private ObservableList<Museum> getInitialTableData() throws Exception {
+		load();
 		return museumData;
-
 	}
 
 	@FXML 
-	private void initialize() {
+	private void initialize() throws Exception {
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
 		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
 		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
-		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("costOfEntry"));
+		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("cost"));
 		
 		museumTable.setItems(getInitialTableData());
 	}
@@ -109,8 +106,10 @@ public class MainMenuController implements Comparable<Museum> {
 	 * When this button is pressed the program ends.
 	 * 
 	 * @param e
+	 * @throws Exception 
 	 */
-	@FXML public void exit(ActionEvent e) {
+	@FXML public void exit(ActionEvent e) throws Exception {
+		save();
 		Platform.exit();
 	}
 
@@ -136,9 +135,11 @@ public class MainMenuController implements Comparable<Museum> {
 			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
 			XMLDecoder decoder= new XMLDecoder(fis);
 
-			Museum loadedMuseumData = (Museum)decoder.readObject();
+			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
 			decoder.close();
 			fis.close();
+			
+			
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -148,7 +149,7 @@ public class MainMenuController implements Comparable<Museum> {
 
 	public void save() throws Exception
 	{
-		Museum mus = new Museum("dassa","sdasfd","daskjnsajnjfnjfj",10.00,14.00);
+		ObservableList<Museum> mus = museumData;
 		try {
 
 			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
