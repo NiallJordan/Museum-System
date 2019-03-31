@@ -5,14 +5,8 @@ import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -22,30 +16,26 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 
 public class MainMenuController implements Comparable<Museum> {
 
 
-	@FXML MenuItem quitMenuItem, alphabeticalButton, byCostMenuItem, byOpeningTimeMenuItem;
-	@FXML Button addButton, deleteButton;
+	@FXML MenuItem quitMenuItem;
+	@FXML Button addButton, deleteButton, sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
+	@FXML TextField nameField,openingTimeField,costOfEntryField;
+	@FXML TextArea addressTextArea, descriptionTextArea;
 
+
+	//configure the table
 	@FXML TableView<Museum> museumTable;
 	@FXML TableColumn<Museum, String> nameColumn, addressColumn, descriptionColumn;
 	@FXML TableColumn<Museum, Double> openingTimeColumn;
 	@FXML TableColumn<Museum,Double> costOfEntryColumn;
-
-	@FXML TextField nameField,openingTimeField,costOfEntryField;
-	@FXML TextArea addressTextArea, descriptionTextArea;
-
-	@FXML Button sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
-
-	private ObservableList<Museum> museumData = FXCollections.observableArrayList();;
-
 
 
 	@FXML 
@@ -73,6 +63,7 @@ public class MainMenuController implements Comparable<Museum> {
 		museumTable.getItems().add(newMuseum);
 	}
 
+	
 	@FXML 
 	public void deleteMuseum(ActionEvent e) {
 		ObservableList<Museum> selectedMuseum, allMuseums;
@@ -85,41 +76,59 @@ public class MainMenuController implements Comparable<Museum> {
 		}
 	}
 
-	@FXML
-	private ObservableList<Museum> getInitialTableData() {
-		
-		return museumData;
-	}
 
+
+	/**
+	 * Initializes the controller class.
+	 * 
+	 * @throws Exception
+	 */
 	@FXML 
 	private void initialize() throws Exception {
-		load();
+//		load();
 		
+		//set up columns in the table
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
 		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
 		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
 		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("cost"));
 		
-		museumTable.setItems(getInitialTableData());
-	}
-	
-	/**
-	 * When this button is pressed the program ends.
-	 * 
-	 * @param e
-	 * @throws Exception 
-	 */
-	@FXML public void exit(ActionEvent e) throws Exception {
-		save();
-		Platform.exit();
+		//loading dummy data
+		museumTable.setItems(getDummyData());
 	}
 
+
+	/**
+	 * This method will return an ObservableList of the Museum Object
+	 */
+	@FXML
+	private ObservableList<Museum> getDummyData() {
+		ObservableList<Museum> museums= FXCollections.observableArrayList();
+		museums.add(new Museum("National History Museum", "Dublin", "Big Museum", 8.30, 7.00));
+		museums.add(new Museum("National History Museum", "New York", "Bigger Museum", 8.30, 14.00));
+		
+		
+		return museums;
+	}
+	
+	
 	@Override
 	public int compareTo(Museum m) {
 		return 0;
 	}
 
+	
+	/**
+	 * This method will allow the user to double click on a cell and update cell
+	 * 
+	 * @param args
+	 */
+	
+//	public void updateFirstNameCell(CellEditEvent editedCell) {
+//		Museum selectedMuseum = (Museum) museumTable.getSelectionModel().getSelectedItems();
+//		selectedMuseum.setName(editedCell.getNewValue().toString());
+//	}
 
 
 
@@ -130,37 +139,49 @@ public class MainMenuController implements Comparable<Museum> {
 	}
 
 
-	@SuppressWarnings("unchecked")
-	public void load() throws Exception
-	{
-		try {
-			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
-			XMLDecoder decoder= new XMLDecoder(fis);
-
-			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
-			decoder.close();
-			fis.close();
-			
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	public void save() throws Exception
-	{
-		ObservableList<Museum> mus = museumData;
-		try {
-
-			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
-			XMLEncoder encoder = new XMLEncoder(fos);
-			encoder.writeObject(mus);
-			encoder.close();
-			fos.close();
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
+//	@SuppressWarnings("unchecked")
+//	public void load() throws Exception
+//	{
+//		try {
+//			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
+//			XMLDecoder decoder= new XMLDecoder(fis);
+//
+//			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
+//			decoder.close();
+//			fis.close();
+//			
+//		}
+//		catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//
+//
+//	public void save() throws Exception
+//	{
+//		ObservableList<Museum> mus = museumData;
+//		try {
+//
+//			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
+//			XMLEncoder encoder = new XMLEncoder(fos);
+//			encoder.writeObject(mus);
+//			encoder.close();
+//			fos.close();
+//		}
+//		catch(IOException e) {
+//			e.printStackTrace();
+//		}
+//	}
+//	
+	
+	/**
+	 * When this button is pressed the program ends.
+	 * 
+	 * @param e
+	 * @throws Exception 
+	 */
+	@FXML public void exit(ActionEvent e) throws Exception {
+		// save();
+		Platform.exit();
 	}
 }

@@ -1,29 +1,36 @@
 package application;
 
+import javafx.beans.property.SimpleStringProperty;
+
 public class Museum {
 
 	public Museum next = null;
 	
-	private String name;
-	private String address;
-	private String description;
+	private SimpleStringProperty name;
+	private SimpleStringProperty address;
+	private SimpleStringProperty description;
 	private double openingTime;
 	private double cost;
 	
-	public Museum(String name, String address, String description, double openingTime, double cost) {		
+	public Museum(String name, String address, String description, double openingTime, double cost) {	
+		this.name = new SimpleStringProperty(name);
+		this.address = new SimpleStringProperty(address);
+		this.description = new SimpleStringProperty(description);
+		this.openingTime = openingTime;
+		this.cost = cost;
 	}
 
 	//==================GETTERS==================\\
 	public String getName() {
-		return name;
+		return name.get();
 	}
 
 	public String getAddress() {
-		return address;
+		return address.get();
 	}
 
 	public String getDescription() {
-		return description;
+		return description.get();
 	}
 
 	public double getOpeningTime() {
@@ -37,15 +44,15 @@ public class Museum {
 
 	//==================SETTERS==================\\
 	public void setName(String name) {
-		this.name = name;
+		this.name = new SimpleStringProperty(name);
 	}
 	
 	public void setAddress(String address) {
-		this.address = address;
+		this.address = new SimpleStringProperty(address);
 	}
 	
 	public void setDescription(String description) {
-		this.description = description;
+		this.description = new SimpleStringProperty(description);
 	}
 	
 	public void setOpeningTime(double openingTime) {
@@ -55,5 +62,5 @@ public class Museum {
 	public void setCost(double cost) {
 		this.cost = cost;
 	}
-	
+
 }
