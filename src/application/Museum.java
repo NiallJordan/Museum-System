@@ -1,37 +1,37 @@
 package application;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class Museum {
 
 	public Museum next = null;
 
-	private SimpleStringProperty name;
-	private SimpleStringProperty address;
-	private SimpleStringProperty description;
+	private String name;
+	private String address;
+	private String description;
 	private double openingTime;
 	private double cost;
 
+	public Museum() {}
+	
 	//This is a constructor for the Museum class
 	public Museum(String name, String address, String description, double openingTime, double cost) {	
-		this.name = new SimpleStringProperty(name);
-		this.address = new SimpleStringProperty(address);
-		this.description = new SimpleStringProperty(description);
+		this.name = name;
+		this.address = address;
+		this.description = description;
 		this.openingTime = openingTime;
 		this.cost = cost;
 	}
 
 	//==================GETTERS==================\\
 	public String getName() {
-		return name.get();
+		return name;
 	}
 
 	public String getAddress() {
-		return address.get();
+		return address;
 	}
 
 	public String getDescription() {
-		return description.get();
+		return description;
 	}
 
 	public double getOpeningTime() {
@@ -49,15 +49,15 @@ public class Museum {
 	 *	with added functionality in table
 	 */
 	public void setName(String name) {
-		this.name = new SimpleStringProperty(name);
+		this.name = name;
 	}
 
 	public void setAddress(String address) {
-		this.address = new SimpleStringProperty(address);
+		this.address = address;
 	}
 
 	public void setDescription(String description) {
-		this.description = new SimpleStringProperty(description);
+		this.description = description;
 	}
 
 	public void setOpeningTime(double openingTime) {
