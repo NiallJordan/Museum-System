@@ -225,7 +225,9 @@ public class MainMenuController{
 	 * @throws Exception 
 	 */
 	@FXML public void exit(ActionEvent e) throws Exception {
+		System.out.println("Saving Tables to xml");
 		save(new ArrayList<Museum>(museumTable.getItems()));
+		System.out.println("Exiting System");
 		Platform.exit();
 	}
 }

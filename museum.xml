@@ -1,3 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_201" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="application.Museum">
+    <void property="address">
+     <string>New York	</string>
+    </void>
+    <void property="cost">
+     <double>14.0</double>
+    </void>
+    <void property="description">
+     <string>big massive museum	</string>
+    </void>
+    <void property="name">
+     <string>National History Museum</string>
+    </void>
+    <void property="openingTime">
+     <double>8.0</double>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="application.Museum">
+    <void property="address">
+     <string>Somewhere in alabama	</string>
+    </void>
+    <void property="cost">
+     <double>2.0</double>
+    </void>
+    <void property="description">
+     <string>Redneck Museum</string>
+    </void>
+    <void property="name">
+     <string>Big Greg&apos;s Museum</string>
+    </void>
+    <void property="openingTime">
+     <double>6.0</double>
+    </void>
+   </object>
+  </void>
+ </object>
 </java>
