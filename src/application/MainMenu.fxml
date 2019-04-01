@@ -57,9 +57,9 @@
                            <columns>
                               <TableColumn fx:id="nameColumn" minWidth="200.0" onEditCommit="#updateNameCell" prefWidth="-1.0" text="Name" />
                               <TableColumn fx:id="addressColumn" minWidth="200.0" onEditCommit="#updateAddressCell" prefWidth="-1.0" text="Address" />
-                              <TableColumn fx:id="descriptionColumn" minWidth="200.0" prefWidth="-1.0" text="Description" />
-                              <TableColumn fx:id="openingTimeColumn" minWidth="100.0" prefWidth="-1.0" text="Opening Time" />
-                              <TableColumn fx:id="costOfEntryColumn" minWidth="100.0" prefWidth="-1.0" text="Cost" />
+                              <TableColumn fx:id="descriptionColumn" minWidth="200.0" onEditCommit="#updateDescriptionCell" prefWidth="-1.0" text="Description" />
+                              <TableColumn fx:id="openingTimeColumn" minWidth="100.0" onEditCommit="#updateOpeningTimeCell" prefWidth="-1.0" text="Opening Time" />
+                              <TableColumn fx:id="costOfEntryColumn" minWidth="100.0" onEditCommit="#updateCostCell" prefWidth="-1.0" text="Cost" />
                            </columns>
                         </TableView>
                      </children>

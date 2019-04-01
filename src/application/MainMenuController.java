@@ -2,11 +2,13 @@ package application;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
+import javafx.util.converter.DoubleStringConverter;
 
 public class MainMenuController{
 
@@ -111,8 +114,10 @@ public class MainMenuController{
 		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
 		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("cost"));
 
+		List<Museum> loadedMuseums = load();
+		museumTable.setItems(FXCollections.observableList(loadedMuseums));
 		//loading dummy data
-		museumTable.setItems(getDummyData());
+		// museumTable.setItems(getDummyData());
 
 
 		//Update Table to allow for editing
@@ -120,8 +125,8 @@ public class MainMenuController{
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		//		openingTimeColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
-		//		costOfEntryColumn.setCellValueFactory(TextFieldTableCell.forTableColumn());
+		openingTimeColumn.setCellFactory(TextFieldTableCell.<Museum, Double>forTableColumn(new DoubleStringConverter()));
+		costOfEntryColumn.setCellFactory(TextFieldTableCell.<Museum, Double>forTableColumn(new DoubleStringConverter()));
 
 	}
 
@@ -176,35 +181,35 @@ public class MainMenuController{
 
 	//================ SAVE AND LOAD =================\\
 
-	//	@SuppressWarnings("unchecked")
-	//	public void load() throws Exception
-	//	{
-	//		try {
-	//			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
-	//			XMLDecoder decoder= new XMLDecoder(fis);
-	//
-	//			ObservableList<Museum> loadedMuseumData = (ObservableList<Museum>)decoder.readObject();
-	//			decoder.close();
-	//			fis.close();
-	//			
-	//		}
-	//		catch(IOException e) {
-	//			e.printStackTrace();
-	//		}
-	//	}
-	//
-	//
 	@SuppressWarnings("unchecked")
-	public void save() throws Exception
+	public List<Museum> load() throws Exception
 	{
-		ObservableList<Museum> mus = museums;
+		List<Museum> loadedMuseums = new ArrayList<>();
 		try {
+			FileInputStream fis = new FileInputStream(new File("./museum.xml"));
+			XMLDecoder decoder= new XMLDecoder(fis);
+			ArrayList<Museum> decodedMuseums = (ArrayList<Museum>)decoder.readObject();
+			for(Museum m : decodedMuseums) {
+				loadedMuseums.add(m);
+			}
+			decoder.close();
+			fis.close();
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		}
+		return loadedMuseums;
+	}
 
-			FileOutputStream fos = new FileOutputStream(new File("./museum.xml"));
-			XMLEncoder encoder = new XMLEncoder(fos);
-			encoder.writeObject(mus);
+
+	@SuppressWarnings("unchecked")
+	public void save(List<Museum> museums) throws Exception
+	{
+		try {
+			FileOutputStream fos = new FileOutputStream("./museum.xml");
+			XMLEncoder encoder = new XMLEncoder(new BufferedOutputStream(fos));
+			encoder.writeObject(museums);
 			encoder.close();
-			fos.close();
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -220,7 +225,7 @@ public class MainMenuController{
 	 * @throws Exception 
 	 */
 	@FXML public void exit(ActionEvent e) throws Exception {
-		save();
+		save(new ArrayList<Museum>(museumTable.getItems()));
 		Platform.exit();
 	}
 }
