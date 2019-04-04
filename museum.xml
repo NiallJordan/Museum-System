@@ -23,19 +23,31 @@
   <void method="add">
    <object class="application.Museum">
     <void property="address">
-     <string>Somewhere in alabama	</string>
+     <string>Kildare Street,
+Dublin 2,
+Dublin,
+Ireland.</string>
     </void>
     <void property="cost">
-     <double>2.0</double>
+     <double>5.0</double>
     </void>
     <void property="description">
-     <string>Redneck Museum</string>
+     <string>The National Museum of Ireland - 
+Archaeology is a branch of 
+the National Museum of 
+Ireland located on Kildare 
+Street in Dublin, Ireland, and 
+dealing with Irish and other 
+antiquities. In general, the 
+museum covers the history of
+ Ireland from the Stone Age 
+to the Late Middle Ages.</string>
     </void>
     <void property="name">
-     <string>Big Greg&apos;s Museum</string>
+     <string>National Museum of Ireland - Archaeology</string>
     </void>
     <void property="openingTime">
-     <double>6.0</double>
+     <double>10.0</double>
     </void>
    </object>
   </void>
