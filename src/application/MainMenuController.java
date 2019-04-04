@@ -202,7 +202,6 @@ public class MainMenuController{
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public void save(List<Museum> museums) throws Exception
 	{
 		try {
