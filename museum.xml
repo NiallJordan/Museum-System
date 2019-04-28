@@ -1,53 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="1.8.0_201" class="java.beans.XMLDecoder">
+<java version="1.8.0_211" class="java.beans.XMLDecoder">
  <object class="java.util.ArrayList">
   <void method="add">
-   <object class="application.Museum">
+   <object class="application.Museum" id="Museum0">
     <void property="address">
-     <string>New York	</string>
+     <string>Small Road, Smallsville</string>
     </void>
     <void property="cost">
-     <double>14.0</double>
+     <int>2</int>
     </void>
     <void property="description">
-     <string>big massive museum	</string>
+     <string>Small Museum</string>
     </void>
     <void property="name">
-     <string>National History Museum</string>
+     <string>Small Museum</string>
     </void>
     <void property="openingTime">
-     <double>8.0</double>
+     <int>10</int>
     </void>
    </object>
   </void>
   <void method="add">
-   <object class="application.Museum">
+   <object class="application.Museum" id="Museum1">
+    <void class="application.Museum" method="getField">
+     <string>next</string>
+     <void method="set">
+      <object idref="Museum1"/>
+      <object idref="Museum0"/>
+     </void>
+    </void>
     <void property="address">
-     <string>Kildare Street,
-Dublin 2,
-Dublin,
-Ireland.</string>
+     <string>Big Road, Bigsville</string>
     </void>
     <void property="cost">
-     <double>5.0</double>
+     <int>4</int>
     </void>
     <void property="description">
-     <string>The National Museum of Ireland - 
-Archaeology is a branch of 
-the National Museum of 
-Ireland located on Kildare 
-Street in Dublin, Ireland, and 
-dealing with Irish and other 
-antiquities. In general, the 
-museum covers the history of
- Ireland from the Stone Age 
-to the Late Middle Ages.</string>
+     <string>BigMuseum</string>
     </void>
     <void property="name">
-     <string>National Museum of Ireland - Archaeology</string>
+     <string>BigMuseum</string>
     </void>
     <void property="openingTime">
-     <double>10.0</double>
+     <int>10</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="application.Museum" id="Museum2">
+    <void class="application.Museum" method="getField">
+     <string>next</string>
+     <void method="set">
+      <object idref="Museum2"/>
+      <object idref="Museum1"/>
+     </void>
+    </void>
+    <void property="address">
+     <string>Huge Road, Hugetown</string>
+    </void>
+    <void property="cost">
+     <int>10</int>
+    </void>
+    <void property="description">
+     <string>Huge Museum</string>
+    </void>
+    <void property="name">
+     <string>Huge Museum</string>
+    </void>
+    <void property="openingTime">
+     <int>9</int>
     </void>
    </object>
   </void>

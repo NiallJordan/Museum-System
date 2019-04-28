@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -25,13 +26,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
-import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 
 public class MainMenuController{
 
 
-	@FXML MenuItem quitMenuItem;
-	@FXML Button addButton, deleteButton, sortAlphabeticallyButton, sortByCostButton, sortByTimeButton;
+	@FXML MenuItem quitMenuItem, alphaSort, timeSort, costSort;
+	@FXML Button addButton, deleteButton;
 
 	//These instance variables are used to create new Museum Objects
 	@FXML TextField nameField,openingTimeField,costOfEntryField;
@@ -41,8 +42,8 @@ public class MainMenuController{
 	//configure the table
 	@FXML TableView<Museum> museumTable;
 	@FXML TableColumn<Museum, String> nameColumn, addressColumn, descriptionColumn;
-	@FXML TableColumn<Museum, Double> openingTimeColumn;
-	@FXML TableColumn<Museum,Double> costOfEntryColumn;
+	@FXML TableColumn<Museum, Integer> openingTimeColumn;
+	@FXML TableColumn<Museum,Integer> costOfEntryColumn;
 
 	ObservableList<Museum> museums= FXCollections.observableArrayList();
 
@@ -55,8 +56,8 @@ public class MainMenuController{
 		String name = nameField.getText();
 		String address = addressTextArea.getText();
 		String description = descriptionTextArea.getText();
-		double openingTime = Double.parseDouble(openingTimeField.getText());
-		double cost = Double.parseDouble(costOfEntryField.getText());
+		int openingTime = Integer.parseInt(openingTimeField.getText());
+		int cost = Integer.parseInt(costOfEntryField.getText());
 
 		//Creating a new Museum item on the custom Linked List.
 		Museum newMuseum = new Museum(name, address, description, openingTime, cost);		
@@ -96,6 +97,29 @@ public class MainMenuController{
 			allMuseums.remove(museumTable);
 		}
 	}
+	
+	//Sorting
+	/*
+	 * Sorting alphabetically  using comparable interface
+	 */
+	@FXML
+	public void sortAlphabetically(ActionEvent e) {
+		Collections.sort(museums);
+		for(Museum museum : museums) {
+			System.out.println(museum);
+		}
+	}
+	
+	@FXML 
+	public void sortByCost(ActionEvent e) {
+		Collections.sort(museums);
+		for(Museum museum : museums) {
+			System.out.println(museum);
+		}
+	}
+	
+	
+
 
 
 
@@ -111,8 +135,8 @@ public class MainMenuController{
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("name"));
 		addressColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("address"));
 		descriptionColumn.setCellValueFactory(new PropertyValueFactory<Museum, String>("description"));
-		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("openingTime"));
-		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Double>("cost"));
+		openingTimeColumn.setCellValueFactory(new PropertyValueFactory<Museum, Integer>("openingTime"));
+		costOfEntryColumn.setCellValueFactory(new PropertyValueFactory<Museum, Integer>("cost"));
 
 		List<Museum> loadedMuseums = load();
 		museumTable.setItems(FXCollections.observableList(loadedMuseums));
@@ -125,8 +149,8 @@ public class MainMenuController{
 		nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		addressColumn.setCellFactory(TextFieldTableCell.forTableColumn());
 		descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-		openingTimeColumn.setCellFactory(TextFieldTableCell.<Museum, Double>forTableColumn(new DoubleStringConverter()));
-		costOfEntryColumn.setCellFactory(TextFieldTableCell.<Museum, Double>forTableColumn(new DoubleStringConverter()));
+		openingTimeColumn.setCellFactory(TextFieldTableCell.<Museum, Integer>forTableColumn(new IntegerStringConverter()));
+		costOfEntryColumn.setCellFactory(TextFieldTableCell.<Museum, Integer>forTableColumn(new IntegerStringConverter()));
 
 	}
 
@@ -138,10 +162,6 @@ public class MainMenuController{
 	 */
 	@FXML
 	private ObservableList<Museum> getDummyData() {
-
-		museums.add(new Museum("National History Museum", "Dublin", "Big Museum", 8.30, 7.00));
-		museums.add(new Museum("National History Museum", "New York", "Bigger Museum", 8.30, 14.00));
-
 		return museums;
 	}
 
@@ -149,7 +169,7 @@ public class MainMenuController{
 
 	//================ UPDATING METHODS =================\\
 	/**
-	 * This method will allow the user to double click on a cell and update cell
+	 * This method will allow the user to integer click on a cell and update cell
 	 * 
 	 * @param args
 	 */
@@ -170,12 +190,12 @@ public class MainMenuController{
 
 	public void updateOpeningTimeCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
-		museumSelected.setOpeningTime(Double.parseDouble(editedCell.getNewValue().toString()));
+		museumSelected.setOpeningTime(Integer.parseInt(editedCell.getNewValue().toString()));
 	}
 
 	public void updateCostCell(CellEditEvent editedCell) {
 		Museum museumSelected = museumTable.getSelectionModel().getSelectedItem();
-		museumSelected.setCost(Double.parseDouble(editedCell.getNewValue().toString()));
+		museumSelected.setCost(Integer.parseInt(editedCell.getNewValue().toString()));
 	}
 
 

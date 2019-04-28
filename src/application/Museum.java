@@ -1,19 +1,19 @@
 package application;
 
-public class Museum {
+public class Museum implements Comparable<Museum> {
 
 	public Museum next = null;
 
 	private String name;
 	private String address;
 	private String description;
-	private double openingTime;
-	private double cost;
+	private int openingTime;
+	private int cost;
 
 	public Museum() {}
 	
 	//This is a constructor for the Museum class
-	public Museum(String name, String address, String description, double openingTime, double cost) {	
+	public Museum(String name, String address, String description, int openingTime, int cost) {	
 		this.name = name;
 		this.address = address;
 		this.description = description;
@@ -34,11 +34,11 @@ public class Museum {
 		return description;
 	}
 
-	public double getOpeningTime() {
+	public int getOpeningTime() {
 		return openingTime;
 	}
 
-	public double getCost() {
+	public int getCost() {
 		return cost;
 	}
 
@@ -60,12 +60,22 @@ public class Museum {
 		this.description = description;
 	}
 
-	public void setOpeningTime(double openingTime) {
+	public void setOpeningTime(int openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public void setCost(double cost) {
+	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	
+//	@Override
+//	public int compareTo(Museum museum) {
+//		return  cost - museum.getCost();
+//	}
+	
+	@Override
+	public int compareTo(Museum museum) {
+		return name.compareTo(museum.getName());
 	}
 
 }

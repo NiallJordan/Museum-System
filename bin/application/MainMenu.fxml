@@ -24,6 +24,13 @@
             <MenuItem fx:id="quitMenuItem" mnemonicParsing="false" onAction="#exit" text="Quit" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Sort">
+               <items>
+                  <MenuItem fx:id="alphaSort" mnemonicParsing="false" onAction="#sortAlphabetically" text="Alphabetically" />
+                  <MenuItem fx:id="timeSort" mnemonicParsing="false" text="By Time " />
+                  <MenuItem fx:id="costSort" mnemonicParsing="false" text="By Cost" />
+               </items>
+            </Menu>
       </menus>
     </MenuBar>
       <SplitPane dividerPositions="0.24681238615664844" prefHeight="573.0" prefWidth="900.0">
