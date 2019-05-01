@@ -28,7 +28,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 import javafx.util.converter.IntegerStringConverter;
 
-public class MainMenuController{
+public class MainMenuController {
 
 
 	@FXML MenuItem quitMenuItem, alphaSort, timeSort, costSort;
@@ -97,29 +97,37 @@ public class MainMenuController{
 			allMuseums.remove(museumTable);
 		}
 	}
-	
+
 	//Sorting
 	/*
 	 * Sorting alphabetically  using comparable interface
 	 */
 	@FXML
 	public void sortAlphabetically(ActionEvent e) {
-		Collections.sort(museums);
-		for(Museum museum : museums) {
-			System.out.println(museum);
-		}
+		List<Museum> list = museumTable.getItems();
+		Collections.sort(list, new NameSorter());
+		System.out.println(list);
 	}
-	
+
+	/*
+	 * Sorting alphabetically  using comparable interface
+	 */
 	@FXML 
 	public void sortByCost(ActionEvent e) {
-		Collections.sort(museums);
-		for(Museum museum : museums) {
-			System.out.println(museum);
-		}
+		List<Museum> list = museumTable.getItems();
+		Collections.sort(list, new CostSorter());
+		System.out.println(list);
 	}
-	
-	
 
+	/*
+	 * Sorting alphabetically  using comparable interface
+	 */
+	@FXML
+	public void sortByOpeningTime(ActionEvent e) {
+		List<Museum> list = museumTable.getItems();
+		Collections.sort(list, new OpeningTimeSorter());
+		System.out.println(list);
+	}
 
 
 

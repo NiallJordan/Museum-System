@@ -1,6 +1,6 @@
 package application;
 
-public class Museum implements Comparable<Museum> {
+public class Museum  implements Comparable<Museum>{
 
 	public Museum next = null;
 
@@ -11,7 +11,7 @@ public class Museum implements Comparable<Museum> {
 	private int cost;
 
 	public Museum() {}
-	
+
 	//This is a constructor for the Museum class
 	public Museum(String name, String address, String description, int openingTime, int cost) {	
 		this.name = name;
@@ -67,15 +67,11 @@ public class Museum implements Comparable<Museum> {
 	public void setCost(int cost) {
 		this.cost = cost;
 	}
-	
-//	@Override
-//	public int compareTo(Museum museum) {
-//		return  cost - museum.getCost();
-//	}
-	
+
 	@Override
-	public int compareTo(Museum museum) {
-		return name.compareTo(museum.getName());
+	public int compareTo(Museum o) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

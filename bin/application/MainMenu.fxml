@@ -27,8 +27,8 @@
             <Menu mnemonicParsing="false" text="Sort">
                <items>
                   <MenuItem fx:id="alphaSort" mnemonicParsing="false" onAction="#sortAlphabetically" text="Alphabetically" />
-                  <MenuItem fx:id="timeSort" mnemonicParsing="false" text="By Time " />
-                  <MenuItem fx:id="costSort" mnemonicParsing="false" text="By Cost" />
+                  <MenuItem fx:id="timeSort" mnemonicParsing="false" onAction="#sortByOpeningTime" text="By Time " />
+                  <MenuItem fx:id="costSort" mnemonicParsing="false" onAction="#sortByCost" text="By Cost" />
                </items>
             </Menu>
       </menus>
